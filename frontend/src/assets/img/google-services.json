@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "279923022833",
+    "firebase_url": "https://firechat-7a4dc.firebaseio.com",
+    "project_id": "firechat-7a4dc",
+    "storage_bucket": "firechat-7a4dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:279923022833:android:0b2362322949eef7f54250",
+        "android_client_info": {
+          "package_name": "com.anncode.platzitripsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "279923022833-04l5au78k5fnv0k2pdltfiiohk4djdrd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAmftFecgIow8MkjRDmygPWp6TKWnOz5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "279923022833-04l5au78k5fnv0k2pdltfiiohk4djdrd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

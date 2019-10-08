@@ -1,0 +1,16 @@
+@import "../../../../../style/configs/color.css";
+
+.alerta-text{
+    border: 1px solid $cian;
+    padding: 5px 15px;
+    border-radius: 1rem;
+    font-size: 10px;
+}
+.alerta-container{
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+.logo-changepass{
+    height: 8rem;
+}
