@@ -273,7 +273,7 @@ export const SelectField = (
         </React.Fragment>
     )
 };
-export const SelectMunicipioField = (
+export const SelectMulti = (
     {
         input,
         disabled,
@@ -303,7 +303,7 @@ export const SelectMunicipioField = (
                 isClearable={isClearable}
                 className={classNames('react-select-container', { 'is-invalid': invalid })}
                 backspaceRemovesValue={false}
-                isMulti={isMulti}
+                isMulti={true}
                 isSearchable={isSearchable}
                 options={_options}
                 placeholder={placeholder}

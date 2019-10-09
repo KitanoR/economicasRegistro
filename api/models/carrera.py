@@ -1,8 +1,7 @@
 from django.db import models
 
-class Semestre(models.Model):
+class Carrera(models.Model):
 
-    numero = models.SmallIntegerField()
     nombre = models.CharField(max_length=50)
     
     activo = models.BooleanField(default=True)

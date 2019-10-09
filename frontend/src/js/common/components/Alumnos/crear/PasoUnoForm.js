@@ -2,8 +2,18 @@ import React, {Fragment} from 'react';
 import { Link } from 'react-router-dom';
 import { validate, validators } from 'validate-redux-form';
 import { Field, reduxForm, formValueSelector, } from 'redux-form';
-import {AsyncSelectField, renderField, SelectField} from '../../Utils/renderField/renderField';
+import {AsyncSelectField, renderField, SelectField, CreatableSelectField} from 'Utils/renderField/renderField';
 import { api } from "api";
+
+
+const exampleOptions = [
+    {"label": "Primary", "value": "Primary"},
+    {"label": "Secondary", "value": "Secondary"},
+    {"label": "Success", "value": "Success"},
+    {"label": "Danger", "value": "Danger"},
+    {"label": "Warning", "value": "Warning"},
+];
+
 
 let PasoUnoForm = props => {
     const { handleSubmit, previousStep } = props;
@@ -43,14 +53,28 @@ let PasoUnoForm = props => {
                     </div>
                     <div className="col-md-6 p-0">
                         <div className="col-md-12 col-sm-12">
-                            <label htmlFor="semestres" className="m-0">Semestres</label>
+                            <label htmlFor="carrera" className="m-0">Carrera</label>
                         </div>
                         <div className="col-md-12  form-group">
-                            <Field name="semestres" component={renderField} type="text" className="form-control" />
+                            <Field name="carrera" component={renderField} type="text" className="form-control" />
                         </div>
                     </div>
                 </div>
-
+                <div className="row  col-md-12 m-0">
+                    <div className="col-md-6 p-0">
+                        <div className="col-md-12 col-sm-12">
+                            <label htmlFor="s" className="m-0">Semestres</label>
+                        </div>
+                        <div className="col-md-12  form-group">
+                            <Field
+                                    name="s"
+                                    isMulti
+                                    options={exampleOptions}
+                                    component={SelectField}
+                                />
+                        </div>
+                    </div>
+                </div>
 
                 <div className="buttons-box mt-5 mb-5">
                     <Link className="btn btn-outline-dark mr-5" to="/fincas">CANCELAR</Link>
@@ -69,6 +93,8 @@ PasoUnoForm = reduxForm({
             'nombre': validators.exists()('Campo requerido.'),
             'apellido': validators.exists()('Campo requerido.'),
             'correo': validators.exists()('Campo requerido.'),
+            'carrera': validators.exists()('Campo requerido.'),
+            's': validators.exists()('Campo requerido.'),
         })
     }
 })(PasoUnoForm);
