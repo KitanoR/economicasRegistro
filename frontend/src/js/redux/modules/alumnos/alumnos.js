@@ -16,6 +16,9 @@ const SET_FILTRO_ALUMNOS = 'SET_FILTRO_ALUMNOS';
 const SET_SILLAS = 'SET_SILLAS';
 const SET_SILLA_SELECCIONADA = 'SET_SILLA_SELECCIONADA';
 
+const SET_CARRERAS = 'SET_CARRERAS';
+const SET_SEMESTRES = 'SET_SEMESTRES';
+
 const listar = (page = 1) =>  (dispatch, getStore) => {
     dispatch({type: LOADER_ALUMNOS, cargando: true});
     const store = getStore();
@@ -64,6 +67,47 @@ const listarSillas = (page = 1) =>  (dispatch, getStore) => {
 };
 
 
+
+const getSemestres = (page = 1) =>  (dispatch, getStore) => {
+    dispatch({type: LOADER_ALUMNOS, cargando: true});
+    const store = getStore();
+   
+    api.get(`semestre`).catch((error) => {
+        dispatch({type: LOADER_ALUMNOS, cargando: false});
+        Swal(
+            'Error',
+            error.detail || 'Ha ocurrido un error, por favor vuelva a intentar.',
+            'error'
+        );
+    }).then((data) => {
+        if(data){
+            dispatch({type: SET_SEMESTRES, semestres: data.results});
+        }
+        dispatch({type: LOADER_ALUMNOS, cargando: false});
+    })
+};
+
+
+const getCarreras = (page = 1) =>  (dispatch, getStore) => {
+    dispatch({type: LOADER_ALUMNOS, cargando: true});
+    const store = getStore();
+   
+    api.get(`carrera`).catch((error) => {
+        dispatch({type: LOADER_ALUMNOS, cargando: false});
+        Swal(
+            'Error',
+            error.detail || 'Ha ocurrido un error, por favor vuelva a intentar.',
+            'error'
+        );
+    }).then((data) => {
+        if(data){
+            dispatch({type: SET_CARRERAS, carreras: data.results});
+        }
+        dispatch({type: LOADER_ALUMNOS, cargando: false});
+    })
+};
+
+
 const detail = id => (dispatch, getState) =>{
     dispatch({type: LOADER_ALUMNOS, cargando: true});
     api.get(`${url}/${id}`).catch((error) => {
@@ -106,7 +150,7 @@ const seleccionarSilla = (codigo, id) => (dispatch, getStore) => {
 
     _.forEach(sillas, (filas) => {
         _.forEach(filas.data, (lugar) => {
-            if (lugar.estado_lugar !== 3) {
+            if (lugar.estado_lugar !== 3 && lugar.estado_lugar !== 4) {
                 lugar.estado_lugar = 1
             }
         })
@@ -191,7 +235,9 @@ export const actions = {
     search,
     listarSillas,
     filtro,
-    seleccionarSilla
+    seleccionarSilla,
+    getSemestres,
+    getCarreras
 };
 export const reducer = {
     [LOADER_ALUMNOS]: (state, { cargando }) => {
@@ -218,6 +264,12 @@ export const reducer = {
     [SET_SILLA_SELECCIONADA]: (state, { silla_seleccionada }) => {
         return {...state, silla_seleccionada }
     },
+    [SET_CARRERAS]: (state, { carreras }) => {
+        return {...state, carreras }
+    },
+    [SET_SEMESTRES]: (state, { semestres }) => {
+        return {...state, semestres }
+    },
 }
 export const initialState = {
     cargando: false,
@@ -232,6 +284,8 @@ export const initialState = {
     filtro_alumnos: null,
     updateData: {},
     sillas: [],
-    silla_seleccionada: null
+    silla_seleccionada: null,
+    carreras: [],
+    semestres: []
 };
 export default handleActions(reducer, initialState) 

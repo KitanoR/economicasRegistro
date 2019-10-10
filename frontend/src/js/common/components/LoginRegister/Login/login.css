@@ -36,3 +36,20 @@
     background: #007bff;
     background: linear-gradient(to right, #0062E6, #3ac1ff);
 }
+.fondo-login {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: -150px;
+    background-image: url('../../../../../assets/img/fondologo.png')
+}
+
+.fondo-card {
+    background: #212B37 !important;
+}
+.label-color-login {
+    color: #29a27f !important;
+}
+.verde-claro {
+    color: white;
+    background: #4EB849;
+}

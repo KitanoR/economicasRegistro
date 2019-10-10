@@ -49,9 +49,6 @@ class SearchInput extends Component {
                     onBlur={this.toogleSearch}
                     autoComplete="off"
                 />
-                <div className="icon-search d-flex align-items-center justify-content-center" onClick={this.toogleSearch} >
-                    <img src={require('assets/img/icons/buscar.png')} alt="Buscar" className="action_img"/>
-                </div>
             </div>
         );
     }

@@ -247,7 +247,9 @@ export const SelectField = (
             _options.push({...option, label: option[labelKey], value: option[valueKey]});
         });
     }
-    let value = input.value;
+    console.log('valor input', input.value)
+    console.log('input', input)
+    let value = input;
     if (value !== null && value !== undefined) {
         value = _.find(_options, {value});
     }
@@ -261,8 +263,11 @@ export const SelectField = (
                 isSearchable={isSearchable}
                 options={_options}
                 placeholder={placeholder}
-                onChange={(e) => { input.onChange(e ? e[valueKey] : null); }}
-                value={value}
+                onChange={(e) => { 
+                    value = e[valueKey]
+                    console.log('evento', input)
+                    input.onChange(e ? e[valueKey] : null); }}
+               
                 isDisabled={disabled}
             />
             {invalid && (
@@ -303,12 +308,12 @@ export const SelectMulti = (
                 isClearable={isClearable}
                 className={classNames('react-select-container', { 'is-invalid': invalid })}
                 backspaceRemovesValue={false}
-                isMulti={true}
+                isMulti={isMulti}
                 isSearchable={isSearchable}
-                options={_options}
+                options={options}
                 placeholder={placeholder}
                 onChange={(e) => { input.onChange(e ? e[valueKey] : null); }}
-                value={value}
+                value={input.value}
                 isDisabled={disabled}
             />
             {invalid && (
@@ -320,6 +325,28 @@ export const SelectMulti = (
     )
 };
 
+export const renderNoAsyncSelectField = ({ input, prerequisitos_list,  clearable, disabled, options, valueKey,isMulti, labelKey, meta: { touched, error } }) => {
+    const invalid = touched && error;
+    return (
+        <div>
+            <Select clearable={clearable} disabled={disabled} value={input.value} className={classNames('form-control p-0 select-reset', { 'is-invalid': invalid })}
+                   isMulti={ isMulti }
+                   onChange={(e) => { 
+                        input.onChange(e ? e : null); 
+                    }}
+                    classNamePrefix="react-select"
+                   cache={false} placeholder="Escriba para buscar"
+                   key={valueKey}
+                   defaultOptions
+                   options={ options }
+                   defaultOptions
+                   searchPromptText="Escriba para buscar" />
+            {invalid && <div className="invalid-feedback">
+                {error}
+            </div>}
+        </div>
+    )
+}; 
 
 export const AsyncSelectField = ({
     input,
@@ -481,5 +508,6 @@ export const RenderField = {
     renderSwitch,
     renderFieldCheck,
     renderFieldRadio,
-    renderCM2
+    renderCM2,
+    renderNoAsyncSelectField
 };

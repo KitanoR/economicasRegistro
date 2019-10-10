@@ -8,11 +8,11 @@ const LoginForm = (props) => {
     return (
         <form name="loginForm" className="form-validate mb-lg" onSubmit={handleSubmit}>
             <div className="form-group has-feedback">
-                <label htmlFor="username">Usuario</label>
+                <label className="label-color-login" htmlFor="username">Usuario</label>
                 <Field name="username" label="Usuario" component={renderField} type="text" className="form-control" />
             </div>
             <div className="form-group has-feedback">
-                <label htmlFor="password">Contraseña</label>
+                <label className="label-color-login" htmlFor="password">Contraseña</label>
                 <Field
                     name="password"
                     label="Contraseña"
@@ -22,7 +22,7 @@ const LoginForm = (props) => {
                 />
             </div>
             <div className="buttons-box">
-                <button type="submit" className="btn btn-primary m-1 align-self-center">Login</button>
+                <button type="submit" className="btn btn-primary verde-claro m-1 align-self-center">Ingresar</button>
             </div>
         </form>
     );

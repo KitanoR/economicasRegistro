@@ -14,12 +14,30 @@ import PasoUnoForm from './PasoUnoForm';
 
 import SillaComponent from './sillas/sillas';
 
+const SillaOcupada = require("assets/img/asientos/ocupado.png");
+const SillaSeleccionada = require("assets/img/asientos/seleccionado.png");
+const SillaLibre = require("assets/img/asientos/disponible.png");
+const SillaReservada = require("assets/img/asientos/reservado.png");
 export default class PasoDosForm extends Component{ 
     render() { 
         const { handleSubmit, previousStep, sillas, seleccionarSilla } = this.props;
         return(
             <div className="mb-4 col-12 mt-5 ">
                 <div className="d-flex justify-content-center col-12 p-0 m-0">
+                    <div className="col-md-2">
+                        <div>
+                            <img src={SillaLibre} /> Disponible
+                        </div>
+                        <div className="mt-2">
+                            <img src={SillaReservada} /> Reservado
+                        </div>
+                        <div className="mt-2">
+                            <img src={SillaOcupada} /> Ocupado
+                        </div>
+                        <div className="mt-2">
+                            <img src={SillaSeleccionada} /> Seleccionado
+                        </div>
+                    </div>
                     <div className="col-md-7">
                         {
                             sillas.map(silla => {
@@ -47,7 +65,7 @@ export default class PasoDosForm extends Component{
                 
                 
 
-                <div className="buttons-box mt-5 col-12">
+                <div className="buttons-box mt-5 col-12 pb-5">
                     <button className="btn btn-outline-dark mr-5" onClick={previousStep}>ANTERIOR</button>
                     <button type="submit" className="btn btn-outline-primary">GUARDAR</button>
                 </div>

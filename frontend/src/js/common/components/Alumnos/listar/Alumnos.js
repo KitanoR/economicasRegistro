@@ -10,6 +10,8 @@ export default class AlumnosList extends Component{
     componentWillMount() {
         const { listar, page } = this.props;
         listar(page);
+        this.props.getSemestres()
+        this.props.getCarreras()
     }
 
     render() {
@@ -25,32 +27,26 @@ export default class AlumnosList extends Component{
                     filtro={filtro} onChange={onFiltroChange}/>
                     <Grid hover striped data={data} loading={loader} onPageChange={onPageChange}
                           onSortChange={onSortChange} page={page} >
-                        <TableHeaderColumn
-                            dataField="id"
-                            dataAlign="center"
-                            width='20%'
-                            dataSort
-                            dataFormat={standardActions({ editar: "bodega", eliminar, ver_bodega: "bodega"})}
-                        />
+                       
                         <TableHeaderColumn
                             isKey
+                            dataField="carnet"
+                            dataSort
+                        >
+                            Carnet
+                        </TableHeaderColumn>
+                        <TableHeaderColumn
                             dataField="nombre"
                             dataSort
                         >
-                            NOMBRE
+                            nombre
                         </TableHeaderColumn>
                         <TableHeaderColumn
-                            dataField="tipo_text"
-                            dataSort
-                        >
-                            TIPO
-                        </TableHeaderColumn>
-                        <TableHeaderColumn
-                            dataField="altura_maxima"
+                            dataField="semestre"
                             dataSort
                             dataFormat={(cell,row) => <RenderCM value={cell} />}
                         >
-                            ALTURA
+                            semestre
                         </TableHeaderColumn>
                         <TableHeaderColumn
                             dataAlign="center"
@@ -58,8 +54,15 @@ export default class AlumnosList extends Component{
                             width='8%'
                             dataSort
                         >
-                            CÓDIGO
+                            lugar
                         </TableHeaderColumn>
+                        <TableHeaderColumn
+                            dataField="id"
+                            dataAlign="center"
+                            width='10%'
+                            dataSort
+                            dataFormat={standardActions({ })}
+                        />
                     </Grid>
                 </Card>
             </div>

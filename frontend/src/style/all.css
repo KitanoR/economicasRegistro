@@ -3274,9 +3274,9 @@ a.btn.disabled, fieldset:disabled a.btn {
 }
 
 .btn-primary {
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff
+    color: white;
+    background: #4EB849;
+    width: 150px;
 }
 
 .btn-primary:hover {
@@ -10578,7 +10578,7 @@ a.text-dark:focus, a.text-dark:hover {
   }
   
   .indexedStep.accomplished {
-    background-color: rgba(0, 116, 217, 1);
+    background-color: #212B37;
   }
 @media print {
     *, :after, :before {

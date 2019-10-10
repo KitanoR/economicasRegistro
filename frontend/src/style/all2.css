@@ -670,9 +670,8 @@ form label:hover, select.form-control:hover {
 }
 
 .btn-primary {
-    color: #fff;
-    border-color: #007bff;
-    background-color: #007bff;
+    color: white;
+    background: #4EB849;
     box-shadow: none
 }
 

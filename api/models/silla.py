@@ -3,11 +3,13 @@ from django.db import models
 class Silla(models.Model):
 
     OCUPADO = 3
+    RESERVADO = 4
     DISPONIBLE = 1
 
     ESTADO_SILLA = (
         (OCUPADO, 'Ocupado'),
         (DISPONIBLE, 'Disponible'),
+        (RESERVADO, 'Reservado'),
     )
 
 

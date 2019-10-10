@@ -3,6 +3,7 @@ from .semestre import Semestre
 from api.models import Carrera
 
 class Alumno(models.Model):
+    
 
     
     nombre = models.CharField(max_length=255)

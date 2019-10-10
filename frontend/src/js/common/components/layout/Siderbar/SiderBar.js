@@ -29,28 +29,13 @@ class Siderbar extends Component {
                 </div>
                 <div className="nav-wrapper">
                     <ul className="nav--no-borders flex-column nav">
-                        <li className="nav-item">
-                            <NavLink to="/" exact className="nav-link " activeClassName={'active'}>
-                                <div className="d-inline-block item-icon-wrapper">
-                                    <i className="material-icons">edit</i>
-                                </div>
-                                <span>Inicio</span>
-                            </NavLink>
-                        </li>
+                        
                         <li className="nav-item">
                             <NavLink to="/alumnos" className="nav-link" activeClassName={'active'}>
                                 <div className="d-inline-block item-icon-wrapper">
                                     <i className="material-icons">vertical_split</i>
                                 </div>
                                 <span>Alumnos</span>
-                            </NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink to="/grids" className="nav-link" activeClassName={'active'}>
-                                <div className="d-inline-block item-icon-wrapper">
-                                    <i className="material-icons">vertical_split</i>
-                                </div>
-                                <span>Grids</span>
                             </NavLink>
                         </li>
                         <li className="nav-item">

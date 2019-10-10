@@ -5,6 +5,7 @@ import LoginForm from './LoginForm';
 import './login.css';
 import LoadMask from "Utils/LoadMask/LoadMask";
 
+const logo = require('../../../../../assets/img/Logo-Meso-BN-1024x962 copia.png')
 class Login extends Component {
     static propTypes = {
         onSubmit: PropTypes.func.isRequired,
@@ -20,15 +21,21 @@ class Login extends Component {
             return (<Redirect to="/" />);
         }
         return (
-            <div className="">
+            <div className="fondo-login ">
                 
-                <br />
-                <div className="login-wrapper">
-                    <div className="card card-login col-lg-3 col-md-4 col-11">
-                        <h5 className="text-center pv">INGRESAR</h5>
+                <div className="login-wrapper col-12 d-flex justify-content-end m-0 p-0">
+                    <div className="card  card-login col-lg-3 col-md-4 col-11 m-0 fondo-card d-flex justify-content-center align-content-center" style={{height:'100vh'}}>
+                        <div className="mb-5 d-flex justify-content-center">
+                            <img src={logo} />
+                        </div>
+                        
                         <LoadMask loading={loader} light>
+                        <div className=" d-flex justify-content-center">
                             <LoginForm onSubmit={onSubmit} />
+                        </div>
+
                         </LoadMask>
+                        
                     </div>
                 </div>
             </div>

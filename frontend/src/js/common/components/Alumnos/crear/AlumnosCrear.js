@@ -12,7 +12,7 @@ import { ProgressBar, Step } from "react-step-progress-bar";
 
 import PasoUnoForm from './PasoUnoForm';
 import PasoDosForm from './PasoDosForm';
-
+import PasoTresConfirmacion from './PasoTresConfirmacion';
 
 export default class AlumnosCrear extends Component{
 
@@ -56,7 +56,7 @@ export default class AlumnosCrear extends Component{
                             <div className="col-md-8">
                                 <ProgressBar
                                     percent={step === 1 ? 45: step === 2 ? 60 : step === 3 ? 65 : 90}
-                                    filledBackground="linear-gradient(to right, #fefb72, #f0bb31)"
+                                    filledBackground="linear-gradient(to right, #212B37, #212B37)"
                                 >
                                     
                                     <Step transition="scale">
@@ -77,6 +77,15 @@ export default class AlumnosCrear extends Component{
                                         </div>
                                     )}
                                     </Step>
+                                    <Step transition="scale">
+                                    {({ accomplished, index }) => (
+                                        <div
+                                            className={`indexedStep ${accomplished ? "accomplished" : null}`}
+                                        >
+                                            {index + 1}
+                                        </div>
+                                    )}
+                                    </Step>
                                 </ProgressBar>
                             </div>
                            
@@ -84,11 +93,13 @@ export default class AlumnosCrear extends Component{
                         <LoadMask loading={loader} blur>
                         {
                                 (<Fragment>
-                                    {step === 1 && (<PasoUnoForm onSubmit={this.nextStep} />)}
+                                    {step === 1 && (<PasoUnoForm onSubmit={this.nextStep} semestres={this.props.semestres}
+                                     carreras ={this.props.carreras} />)}
                                     {step === 2 && (<PasoDosForm onSubmit={this.nextStep} 
                                                                 sillas={this.props.sillas}
                                                                 seleccionarSilla={seleccionarSilla}
                                                                 previousStep={this.previousStep} />)}
+                                    {step === 3 && (<PasoTresConfirmacion />)}
                                 </Fragment>)
                         }
                     </LoadMask>

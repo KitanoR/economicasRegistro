@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import { Link } from 'react-router-dom';
 import { validate, validators } from 'validate-redux-form';
 import { Field, reduxForm, formValueSelector, } from 'redux-form';
-import {AsyncSelectField, renderField, SelectField, CreatableSelectField} from 'Utils/renderField/renderField';
+import {AsyncSelectField, renderField, SelectField, SelectMulti, renderNoAsyncSelectField} from 'Utils/renderField/renderField';
 import { api } from "api";
 
 
@@ -69,14 +69,14 @@ let PasoUnoForm = props => {
                             <Field
                                     name="s"
                                     isMulti
-                                    options={exampleOptions}
-                                    component={SelectField}
+                                    options={props.semestres}
+                                    component={renderNoAsyncSelectField}
                                 />
                         </div>
                     </div>
                 </div>
 
-                <div className="buttons-box mt-5 mb-5">
+                <div className="buttons-box mt-5 pb-5">
                     <Link className="btn btn-outline-dark mr-5" to="/fincas">CANCELAR</Link>
                     <button type="submit" className="btn btn-outline-primary">SIGUIENTE</button>
                 </div>
