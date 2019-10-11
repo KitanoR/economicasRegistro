@@ -46,7 +46,7 @@ export default class AlumnosCrear extends Component{
 
     render() {
         const { listar: onPageChange, onSortChange, eliminar, filtro, create } = this.props;
-        const { data, loader, page, onFiltroChange, seleccionarSilla } = this.props;
+        const { data, cargando, page, onFiltroChange, seleccionarSilla } = this.props;
         const { step } = this.state;
         return(
             <div className="mb-4 col-12 mt-5">
@@ -92,7 +92,7 @@ export default class AlumnosCrear extends Component{
                             </div>
                            
                         </div>
-                        <LoadMask loading={loader} blur>
+                        <LoadMask loading={cargando} blur>
                         {
                                 (<Fragment>
                                     {step === 1 && (<PasoUnoForm onSubmit={this.nextStep} semestres={this.props.semestres}

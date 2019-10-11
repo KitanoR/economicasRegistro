@@ -19,11 +19,13 @@ const SET_SILLA_SELECCIONADA = 'SET_SILLA_SELECCIONADA';
 const SET_CARRERAS = 'SET_CARRERAS';
 const SET_SEMESTRES = 'SET_SEMESTRES';
 
+const SEARCH = 'SEARCH_Alumnos';
+
+
 const listar = (page = 1) =>  (dispatch, getStore) => {
     dispatch({type: LOADER_ALUMNOS, cargando: true});
     const store = getStore();
-    const search = store.alumnos.buscador;
-    const filtro = store.alumnos.filtro_alumnos;
+    const search = store.alumnos.search;
     let params = {page, search};
 
     if(filtro){
@@ -129,13 +131,12 @@ const create = () => (dispatch, getStore) => {
 
     if(getStore().alumnos.silla_seleccionada){
         let semestres = []
-       
+        dispatch({type: LOADER_ALUMNOS, cargando: true})
         _.forEach(formData.semestre, (sem) => { 
             semestres.push(sem.id)
         })
         formData.semestre = semestres
         formData.lugar = getStore().alumnos.silla_seleccionada.id
-        dispatch({type: LOADER_ALUMNOS, cargando: true})
         api.post(`${url}`, formData).then((data) => {
             dispatch({type: LOADER_ALUMNOS, cargando: false})
             Swal.fire('Éxito', 'Se ha inscrito correctamente al estudiante.', 'success')
@@ -155,6 +156,7 @@ const create = () => (dispatch, getStore) => {
     }else {
         Swal.fire('Error', 'Debe de seleccionar un lugar.', 'error')
             .then(() => {
+                dispatch({type: LOADER_ALUMNOS, cargando: false})
             })
     }
     
@@ -246,6 +248,15 @@ const cleanForm = () => (dispatch) => {
     dispatch(initializeForm('alumnoForm', {}));
     dispatch({type: SET_SILLA_SELECCIONADA, silla_seleccionada: null});
 }
+
+const searchChange = search => (dispatch) => {
+    dispatch(setSearch(search));
+    dispatch(listar());
+};
+const setSearch = search => ({
+    type: SEARCH,
+    search,
+});
 export const actions = {
     listar,
     detail,
@@ -258,7 +269,8 @@ export const actions = {
     seleccionarSilla,
     getSemestres,
     getCarreras,
-    cleanForm
+    cleanForm,
+    searchChange
 };
 export const reducer = {
     [LOADER_ALUMNOS]: (state, { cargando }) => {
@@ -291,6 +303,12 @@ export const reducer = {
     [SET_SEMESTRES]: (state, { semestres }) => {
         return {...state, semestres }
     },
+    [SEARCH]: (state, { search }) => {
+        return {
+            ...state,
+            search,
+        };
+    },
 }
 export const initialState = {
     cargando: false,
@@ -301,7 +319,7 @@ export const initialState = {
         previous: null,
         results: [],
     },
-    buscador: '',
+    search: '',
     filtro_alumnos: null,
     updateData: {},
     sillas: [],

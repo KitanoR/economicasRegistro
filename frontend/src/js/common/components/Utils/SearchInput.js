@@ -35,22 +35,20 @@ class SearchInput extends Component {
         }
         return (
             <div className="container-search">
-                <input
-                    className={classnames('form-control ', 'input--search ', {expanded, search_active})}
-                    type="text"
-                    id="buscar" 
-                    placeholder="Buscar"
-                    ref={this.searchRef}
-                    
-                    onKeyPress={(event) => {
-                        if (event.key === 'Enter') {
-                          searchChange(this.buscar.value);
-                        }
-                    }}
-                    value={search}
-                    onBlur={this.toogleSearch}
-                    autoComplete="off"
-                />
+               
+                 <input id="buscar" type="text" name="buscar" placeholder={"buscar..."}
+                   ref={node => {
+                     this.buscar = node;
+                     if (this.buscar) {
+                       this.buscar.value = search;
+                     }
+                   }}
+                   onKeyPress={(event) => {
+                     if (event.key === 'Enter') {
+                        searchChange(this.buscar.value);
+                     }
+                   }}
+                   autoComplete="off" className="form-control"/>
             </div>
         );
     }
