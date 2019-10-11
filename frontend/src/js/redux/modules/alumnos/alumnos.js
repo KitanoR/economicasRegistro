@@ -2,7 +2,7 @@ import Swal from 'sweetalert2';
 import { api } from "api";
 import { createActions, handleActions } from 'redux-actions'
 import { goBack } from 'react-router-redux'
-import { initialize as initializeForm } from 'redux-form'
+import { initialize as initializeForm, reset } from 'redux-form'
 import { push } from 'react-router-redux';
 const url = 'alumnos';
 
@@ -125,24 +125,39 @@ const detail = id => (dispatch, getState) =>{
 }
 
 const create = () => (dispatch, getStore) => {
-    const formData = getStore().form.bodega.values;
-    dispatch({type: LOADER_ALUMNOS, cargando: true})
-    api.post(`${url}`, formData).then((data) => {
-        dispatch({type: LOADER_ALUMNOS, cargando: false})
-        Swal('Éxito', 'Se ha creado la bodega.', 'success')
-        .then(() => {
-            dispatch(push('/alumnos'))
+    const formData = getStore().form.alumnoForm.values;
+
+    if(getStore().alumnos.silla_seleccionada){
+        let semestres = []
+       
+        _.forEach(formData.semestre, (sem) => { 
+            semestres.push(sem.id)
         })
-    }).catch((error) => {
-        dispatch({type: LOADER_ALUMNOS, cargando: false})
-        Swal(
-            'Error',
-             error.detail || 'Ha ocurrido un error, por favor vuelva a intentar.',
-            'error'
-        );
-    }).finally(() => {
-        dispatch({type: LOADER_BODEGA, cargando: false})
-    });
+        formData.semestre = semestres
+        formData.lugar = getStore().alumnos.silla_seleccionada.id
+        dispatch({type: LOADER_ALUMNOS, cargando: true})
+        api.post(`${url}`, formData).then((data) => {
+            dispatch({type: LOADER_ALUMNOS, cargando: false})
+            Swal.fire('Éxito', 'Se ha inscrito correctamente al estudiante.', 'success')
+            .then(() => {
+                dispatch(push('/alumnos'))
+            })
+        }).catch((error) => {
+            dispatch({type: LOADER_ALUMNOS, cargando: false})
+            Swal.fire(
+                'Error',
+                error.detail || 'Ha ocurrido un error, por favor vuelva a intentar.',
+                'error'
+            );
+        }).finally(() => {
+            dispatch({type: LOADER_BODEGA, cargando: false})
+        });
+    }else {
+        Swal.fire('Error', 'Debe de seleccionar un lugar.', 'error')
+            .then(() => {
+            })
+    }
+    
 };
 
 const seleccionarSilla = (codigo, id) => (dispatch, getStore) => {
@@ -226,6 +241,11 @@ const filtro = (filtro) => (dispatch, getStore) => {
     dispatch({type: SET_FILTRO_ALUMNOS, filtro_alumnos: filtro});
     dispatch(listar(1));
 };
+
+const cleanForm = () => (dispatch) => {
+    dispatch(initializeForm('alumnoForm', {}));
+    dispatch({type: SET_SILLA_SELECCIONADA, silla_seleccionada: null});
+}
 export const actions = {
     listar,
     detail,
@@ -237,7 +257,8 @@ export const actions = {
     filtro,
     seleccionarSilla,
     getSemestres,
-    getCarreras
+    getCarreras,
+    cleanForm
 };
 export const reducer = {
     [LOADER_ALUMNOS]: (state, { cargando }) => {

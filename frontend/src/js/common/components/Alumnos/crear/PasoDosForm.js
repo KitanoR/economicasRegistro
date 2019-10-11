@@ -24,7 +24,7 @@ export default class PasoDosForm extends Component{
         return(
             <div className="mb-4 col-12 mt-5 ">
                 <div className="d-flex justify-content-center col-12 p-0 m-0">
-                    <div className="col-md-2">
+                    <div className="col-md-2 mt-5">
                         <div>
                             <img src={SillaLibre} /> Disponible
                         </div>
@@ -38,7 +38,10 @@ export default class PasoDosForm extends Component{
                             <img src={SillaSeleccionada} /> Seleccionado
                         </div>
                     </div>
-                    <div className="col-md-7">
+                    <div className="col-md-7 d-flex justify-content-center row">
+                        <div className="text-center mb-3 pt-2" style={{background: "#efefef", height: 50, width: "70%"}} >
+                                <span className="h4">Escenario</span>
+                        </div>
                         {
                             sillas.map(silla => {
                                 return(
@@ -67,7 +70,7 @@ export default class PasoDosForm extends Component{
 
                 <div className="buttons-box mt-5 col-12 pb-5">
                     <button className="btn btn-outline-dark mr-5" onClick={previousStep}>ANTERIOR</button>
-                    <button type="submit" className="btn btn-outline-primary">GUARDAR</button>
+                    <button type="button" onClick={this.props.crear} className="btn btn-primary">GUARDAR</button>
                 </div>
             </div>
         );

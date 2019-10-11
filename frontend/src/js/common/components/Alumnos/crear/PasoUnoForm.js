@@ -23,7 +23,16 @@ let PasoUnoForm = props => {
         <form onSubmit={handleSubmit}>
             <div className="form-group grid-container ">
                 <h6 className="ml-4 mb-4">DATOS DEL ALUMNO</h6>
-                
+                <div className="row  col-md-12 m-0">
+                    <div className="col-md-6 p-0">
+                        <div className="col-md-12 col-sm-12">
+                            <label htmlFor="carnet" className="m-0">Carnet</label>
+                        </div>
+                        <div className="col-md-12  form-group">
+                            <Field name="carnet" component={renderField} type="number" className="form-control" />
+                        </div>
+                    </div>
+                </div>
                 <div className="row  col-md-12 m-0">
                     <div className="col-md-6 p-0">
                         <div className="col-md-12 col-sm-12">
@@ -48,7 +57,7 @@ let PasoUnoForm = props => {
                             <label htmlFor="correo" className="m-0">Correo</label>
                         </div>
                         <div className="col-md-12  form-group">
-                            <Field name="correo" component={renderField} type="text" className="form-control" />
+                            <Field name="correo" component={renderField} type="email" className="form-control" />
                         </div>
                     </div>
                     <div className="col-md-6 p-0">
@@ -56,18 +65,22 @@ let PasoUnoForm = props => {
                             <label htmlFor="carrera" className="m-0">Carrera</label>
                         </div>
                         <div className="col-md-12  form-group">
-                            <Field name="carrera" component={renderField} type="text" className="form-control" />
+                        <Field
+                                    name="carrera"
+                                    options={props.carreras}
+                                    component={renderNoAsyncSelectField}
+                                />
                         </div>
                     </div>
                 </div>
                 <div className="row  col-md-12 m-0">
                     <div className="col-md-6 p-0">
                         <div className="col-md-12 col-sm-12">
-                            <label htmlFor="s" className="m-0">Semestres</label>
+                            <label htmlFor="semestre" className="m-0">Semestres</label>
                         </div>
                         <div className="col-md-12  form-group">
                             <Field
-                                    name="s"
+                                    name="semestre"
                                     isMulti
                                     options={props.semestres}
                                     component={renderNoAsyncSelectField}
@@ -94,7 +107,8 @@ PasoUnoForm = reduxForm({
             'apellido': validators.exists()('Campo requerido.'),
             'correo': validators.exists()('Campo requerido.'),
             'carrera': validators.exists()('Campo requerido.'),
-            's': validators.exists()('Campo requerido.'),
+            'semestre': validators.exists()('Campo requerido.'),
+            'carnet': validators.exists()('Campo requerido.'),
         })
     }
 })(PasoUnoForm);

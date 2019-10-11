@@ -16,7 +16,7 @@ class Asignacion(models.Model):
     
 
     def __str__(self):
-        return self.name
+        return self.silla.fila_letra
 
     def __index_(self):
         return id

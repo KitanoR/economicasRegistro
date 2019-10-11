@@ -38,11 +38,13 @@ class SearchInput extends Component {
                 <input
                     className={classnames('form-control ', 'input--search ', {expanded, search_active})}
                     type="text"
+                    id="buscar" 
                     placeholder="Buscar"
                     ref={this.searchRef}
-                    onChange={() => {
-                        if (this.searchRef.current) {
-                            searchChange(this.searchRef.current.value);
+                    
+                    onKeyPress={(event) => {
+                        if (event.key === 'Enter') {
+                          searchChange(this.buscar.value);
                         }
                     }}
                     value={search}

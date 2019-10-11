@@ -21,6 +21,8 @@ export default class AlumnosCrear extends Component{
         step: 1
     };
       componentWillMount(){
+        this.props.getSemestres()
+        this.props.getCarreras()
           this.props.listarSillas();
           if(this.props.match.params.id){
               this.props.leer(this.props.match.params.id);
@@ -38,12 +40,12 @@ export default class AlumnosCrear extends Component{
           this.setState({ step: this.state.step - 1 })
       };
       componentDidMount() {
-         // this.props.cleanForm()
+        this.props.cleanForm()
       }
     
 
     render() {
-        const { listar: onPageChange, onSortChange, eliminar, filtro } = this.props;
+        const { listar: onPageChange, onSortChange, eliminar, filtro, create } = this.props;
         const { data, loader, page, onFiltroChange, seleccionarSilla } = this.props;
         const { step } = this.state;
         return(
@@ -55,7 +57,7 @@ export default class AlumnosCrear extends Component{
                         <div className="mb-4 d-flex justify-content-center">
                             <div className="col-md-8">
                                 <ProgressBar
-                                    percent={step === 1 ? 45: step === 2 ? 60 : step === 3 ? 65 : 90}
+                                    percent={step === 1 ? 10: step === 2 ? 60 : step === 3 ? 65 : 90}
                                     filledBackground="linear-gradient(to right, #212B37, #212B37)"
                                 >
                                     
@@ -95,7 +97,7 @@ export default class AlumnosCrear extends Component{
                                 (<Fragment>
                                     {step === 1 && (<PasoUnoForm onSubmit={this.nextStep} semestres={this.props.semestres}
                                      carreras ={this.props.carreras} />)}
-                                    {step === 2 && (<PasoDosForm onSubmit={this.nextStep} 
+                                    {step === 2 && (<PasoDosForm crear={create} 
                                                                 sillas={this.props.sillas}
                                                                 seleccionarSilla={seleccionarSilla}
                                                                 previousStep={this.previousStep} />)}
