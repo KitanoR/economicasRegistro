@@ -44,13 +44,30 @@ export default class AlumnosList extends Component{
                         <TableHeaderColumn
                             dataField="semestre"
                             dataSort
-                            dataFormat={(cell,row) => <RenderCM value={cell} />}
+                            dataFormat={(cell,row) =>{
+                                return(
+                                  <div>
+                                      <span>Carrera: {row.carrera.nombre}</span>
+                                      <br/>
+                                      {
+                                          row.semestres.map(x => {
+                                            return (
+                                                <div>
+                                                     <span>{x.nombre}</span>
+                                                </div>
+                                               
+                                            );
+                                          })
+                                      }
+                                  </div>  
+                                );
+                            }}
                         >
                             semestre
                         </TableHeaderColumn>
                         <TableHeaderColumn
                             dataAlign="center"
-                            dataField="id"
+                            dataField="asignacion"
                             width='8%'
                             dataSort
                         >

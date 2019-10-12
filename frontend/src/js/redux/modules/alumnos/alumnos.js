@@ -232,10 +232,7 @@ const destroy = (id) => (dispatch, getStore) => {
     })
 }
 
-const search = (search) => (dispatch, getStore) => {
-    dispatch({type: SET_BUSCADOR_ALUMNOS, buscador: search});
-    dispatch(listar(1));
-};
+
 const filtro = (filtro) => (dispatch, getStore) => {
     if (filtro == 0){
         filtro = null
@@ -263,7 +260,6 @@ export const actions = {
     create,
     update,
     destroy,
-    search,
     listarSillas,
     filtro,
     seleccionarSilla,
