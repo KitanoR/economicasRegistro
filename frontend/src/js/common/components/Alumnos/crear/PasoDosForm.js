@@ -23,7 +23,7 @@ export default class PasoDosForm extends Component{
         const { handleSubmit, previousStep, sillas, seleccionarSilla } = this.props;
         return(
             <div className="mb-4 col-12 mt-5 ">
-                <div className="d-flex justify-content-center col-12 p-0 m-0">
+                <div className="d-flex justify-content-center col-12 row p-0 m-0">
                     <div className="col-md-2 mt-5">
                         <div>
                             <img src={SillaLibre} /> Disponible

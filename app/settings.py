@@ -60,10 +60,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_filters',
     'api',
-    'mptt',
     'django.contrib.sites',
-    'djcelery',
-    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -158,8 +155,8 @@ MEDIA_URL = '/media/'
 # Email Config
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = 'qetamajapp@gmail.com'
+EMAIL_HOST_PASSWORD = 'qetamaj123'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 

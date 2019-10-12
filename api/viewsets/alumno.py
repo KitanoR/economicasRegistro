@@ -10,12 +10,10 @@ from rest_framework.decorators import action
 
 from json import dumps
 
-from PIL import Image, ImageDraw
 
 from api.models import Alumno, Silla, Semestre, Asignacion
 
 from api.serializers import AlumnoSerializer, AlumnoReadSerializer
-import pyqrcode
 
 
 from io import BytesIO

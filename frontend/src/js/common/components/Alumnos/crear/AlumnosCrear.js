@@ -55,7 +55,7 @@ export default class AlumnosCrear extends Component{
                     titulo="Inscripción de alumnos"
                     subtitulo="">
                         <div className="mb-4 d-flex justify-content-center">
-                            <div className="col-md-8">
+                            <div className="col-md-10">
                                 <ProgressBar
                                     percent={step === 1 ? 10: step === 2 ? 60 : step === 3 ? 65 : 90}
                                     filledBackground="linear-gradient(to right, #212B37, #212B37)"

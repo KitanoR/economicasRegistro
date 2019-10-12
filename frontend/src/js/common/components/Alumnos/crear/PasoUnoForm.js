@@ -90,7 +90,7 @@ let PasoUnoForm = props => {
                 </div>
 
                 <div className="buttons-box mt-5 pb-5">
-                    <Link className="btn btn-outline-dark mr-5" to="/fincas">CANCELAR</Link>
+                    <Link className="btn btn-outline-dark mr-5" to="/alumnos">CANCELAR</Link>
                     <button type="submit" className="btn btn-outline-primary">SIGUIENTE</button>
                 </div>
             </div>

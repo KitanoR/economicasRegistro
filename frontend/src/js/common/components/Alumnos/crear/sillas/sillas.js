@@ -21,7 +21,7 @@ export default class SillaComponent extends Component{
         const { handleSubmit, previousStep, lugar } = this.props;
         const { estado } = this.state;
         return(
-            <div className="col-1" onClick={this.seleccionarSilla}>
+            <div className="col-1 m-0 p-0" onClick={this.seleccionarSilla}>
                <div className="text-center  m-0">
                    {lugar.fila_letra}-{lugar.no_lugar}
                </div> 
