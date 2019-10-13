@@ -12,6 +12,7 @@ class Alumno(models.Model):
     correo = models.EmailField()
     semestres = models.ManyToManyField(Semestre)
     carrera = models.ForeignKey(Carrera, on_delete=models.CASCADE, related_name="alumnos")
+    cantidad_verificacion = models.SmallIntegerField(default=0)
 
     codigo_qr = models.ImageField(upload_to='codigos/%Y/%m/%d', blank=True, null=True)
     activo = models.BooleanField(default=True)

@@ -35,7 +35,7 @@ class SillasViewset(viewsets.ModelViewSet):
         pivote = 64
         queryset = self.queryset
         data = []
-        for x in range(1, 15):
+        for x in range(1, 16):
             fila = queryset.filter(fila_letra=chr(pivote + x)).order_by('no_lugar')
             _serializer = SillaSerializer(fila, many=True)
             _data = {'letra': chr(pivote + x), 'codigo': pivote + x, 'data': _serializer.data}
