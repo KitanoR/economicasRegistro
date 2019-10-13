@@ -3,10 +3,10 @@ from rest_framework import status, filters, viewsets
 from django.db import transaction
 
 from rest_framework import serializers
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
-from rest_framework.decorators import action
+from rest_framework.decorators import action, permission_classes
 
 from json import dumps
 
@@ -38,6 +38,15 @@ class AlumnoViewset(viewsets.ModelViewSet):
             return AlumnoReadSerializer
         else:
             return AlumnoSerializer
+    def get_permissions(self):
+        """
+        Instantiates and returns the list of permissions that this view requires.
+        """
+        if self.action == 'leerQR':
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
 
     def create(self, request, *args, **kwargs):
         data = request.data
