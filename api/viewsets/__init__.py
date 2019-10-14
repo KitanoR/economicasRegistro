@@ -7,3 +7,4 @@ from .alumno import AlumnoViewset
 
 from .semestre import SemestreViewset
 from .carrera import CarreraViewset
+from .estudiante import EstudianteViewSet
