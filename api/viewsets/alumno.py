@@ -89,6 +89,7 @@ class AlumnoViewset(viewsets.ModelViewSet):
             silla.estado_lugar = Silla.OCUPADO
             silla.save()
             
+            """
            
             codigo = str(alumno.codigo_qr.url)
             
@@ -100,7 +101,7 @@ class AlumnoViewset(viewsets.ModelViewSet):
                 'monto': 100.00
             }
             sendEmailProveedor(orden_correo, alumno.correo, codigo_qr=codigo)
-
+            """
             return Response(serializer.data, status= status.HTTP_201_CREATED)
 
     @action(methods=["post"], detail=False)
