@@ -59,6 +59,67 @@ class EstudianteViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         data = request.data
         try:
-            return Response(status=status.HTTP_202_ACCEPTED)
+            with transaction.atomic():
+                semestres = data.get('semestre', None)
+                carrera = data.get('carrera', None)
+                lugar = data.get('lugar', None)
+                if lugar == None:
+                    raise serializers.ValidationError({'detail': 'Debe de seleccionar un lugar'})
+                if semestres == None:
+                    raise serializers.ValidationError({'detail': ' Debe de seleccionar al menos un semestre'})
+                if carrera != None:
+                    data['carrera'] = carrera.get('id')
+                serializer = self.get_serializer(data=data)
+                serializer.is_valid(raise_exception=True)
+                alumno = serializer.save()
+
+                nombre_qr = "{}".format(alumno.carnet)
+                qrcode_img = qrcode.make("{}".format(alumno.carnet))
+
+                blob = BytesIO()
+                qrcode_img.save(blob, 'JPEG')
+                alumno.codigo_qr.save('{}.jpg'.format(alumno.carnet), File(blob), save=False)
+                alumno.save()
+
+                semestres = Semestre.objects.filter(id__in=semestres)
+                for _semestre in semestres:
+                    alumno.semestres.add(_semestre)
+                silla = Silla.objects.get(id=lugar)
+                if silla.estado_lugar == silla.OCUPADO or silla.estado_lugar == Silla.RESERVADO:
+                    raise serializers.ValidationError({'detail': 'Este lugar ya está ocupado'})
+                asignacion = Asignacion(
+                    alumno=alumno,
+                    silla_id=lugar
+                ).save()
+                silla.estado_lugar = Silla.OCUPADO
+                silla.save()
+                codigo = str(alumno.codigo_qr.url)
+                orden_correo = {
+                    'silla': '{}-{}'.format(silla.fila_letra, silla.no_lugar),
+                    'usuario': alumno.nombre,
+                    'no_orden': alumno.carnet,
+                    'fecha': '',
+                    'monto': 100.00
+                }
+                sendEmailProveedor(orden_correo, alumno.correo, codigo_qr=codigo)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=["post"], detail=False)
+    def leerQR(self, request, *args, **kwargs):
+        data = request.data
+        carnet = data['carnet']
+        conf = Configuracion.objects.first()
+        alumno = Alumno.objects.filter(carnet=carnet).first()
+        if alumno:
+            if alumno.cantidad_verificacion < conf.cantidad_qr:
+                cantidad = alumno.cantidad_verificacion + 1
+                alumno.cantidad_verificacion = cantidad
+                alumno.save()
+                return Response({'detail':'Se ha verificado correctamente'}, status=status.HTTP_200_OK)
+            else:
+                raise serializers.ValidationError({'detail': 'El código ya no es válido.'})
+        else:
+            raise serializers.ValidationError({'detail':'No existe el carnet.'})
