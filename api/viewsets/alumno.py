@@ -88,7 +88,7 @@ class AlumnoViewset(viewsets.ModelViewSet):
             ).save()
             silla.estado_lugar = Silla.OCUPADO
             silla.save()
-            codigo = str(allumno.codigo_qr.url)
+            codigo = str(alumno.codigo_qr.url)
             orden_correo = {
                 'silla': '{}-{}'.format(silla.fila_letra, silla.no_lugar),
                 'usuario': alumno.nombre,
