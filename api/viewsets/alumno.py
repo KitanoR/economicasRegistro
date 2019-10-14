@@ -88,15 +88,6 @@ class AlumnoViewset(viewsets.ModelViewSet):
             ).save()
             silla.estado_lugar = Silla.OCUPADO
             silla.save()
-            codigo = str(alumno.codigo_qr.url)
-            orden_correo = {
-                'silla': '{}-{}'.format(silla.fila_letra, silla.no_lugar),
-                'usuario': alumno.nombre,
-                'no_orden': alumno.carnet,
-                'fecha': '',
-                'monto': 100.00
-            }
-            sendEmailProveedor(orden_correo, alumno.correo, codigo_qr=codigo)
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
     @action(methods=["post"], detail=False)
