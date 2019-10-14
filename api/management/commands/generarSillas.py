@@ -34,7 +34,6 @@ class Command(BaseCommand):
                         break
 
         except Exception as e:
-            print("error {}".format(e))
             pass
 
     def handle(self, *args, **options):

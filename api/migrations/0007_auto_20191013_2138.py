@@ -35,7 +35,6 @@ def load_inital_data(apps, schema_editor):
                 else:
                     break
     except Exception as e:
-        print("error {}".format(e))
         pass
     sillas = Silla.objects.filter(
         fila_letra="A"

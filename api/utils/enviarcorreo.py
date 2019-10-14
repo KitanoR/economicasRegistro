@@ -43,7 +43,6 @@ def sendEmailProveedor(data, email, codigo_qr):
     template = 'oc_message.html'
     current_site = Site.objects.get_current()
     alerta = str(current_site)+ codigo_qr
-    print(alerta)
     logo = str(current_site)+"/static/backend/img/logoMeso.png"
     cuerpo = {
         'data': data,
