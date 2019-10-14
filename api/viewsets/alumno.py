@@ -1,3 +1,7 @@
+#!/usr/bin/python3.6
+# /usr/bin/python3.6 is the only line of code I changed to fix the crash
+# -*- coding: utf-8 -*-
+
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status, filters, viewsets
 from django.db import transaction
