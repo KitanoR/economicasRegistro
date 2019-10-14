@@ -5,6 +5,38 @@ from django.db import migrations
 def load_inital_data(apps, schema_editor):
     #Sillas reservadas
     Silla = apps.get_model("api", "Silla")
+    pivote = 64
+    try:
+        grupo_once = [1,2,5,6,7,8,9,11,12,13,14]
+        grupo_diez = [3,4,15]
+        grupo_nueve = [10]
+        for x in range(1, 16):
+            letra_inicial = pivote + x
+            letra_silla = chr(letra_inicial)
+            for i in range(1, 12):
+                if x in grupo_diez and i < 11:
+                    silla = Silla(
+                        no_lugar= i,
+                        fila_letra=letra_silla
+                    )
+                    silla.save()
+                elif x in grupo_nueve and i < 10:
+                    silla = Silla(
+                        no_lugar= i,
+                        fila_letra=letra_silla
+                    )
+                    silla.save()
+                elif x in grupo_once:
+                    silla = Silla(
+                        no_lugar= i,
+                        fila_letra=letra_silla
+                    )
+                    silla.save()
+                else:
+                    break
+    except Exception as e:
+        print("error {}".format(e))
+        pass
     sillas = Silla.objects.filter(
         fila_letra="A"
     ).update(
