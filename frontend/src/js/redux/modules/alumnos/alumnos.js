@@ -53,7 +53,7 @@ const listarSillas = (page = 1) =>  (dispatch, getStore) => {
     dispatch({type: LOADER_ALUMNOS, cargando: true});
     const store = getStore();
    
-    api.get(`sillas/get_lugares/`).catch((error) => {
+    api.get(`sillas/get_lugares`).catch((error) => {
         dispatch({type: LOADER_ALUMNOS, cargando: false});
         Swal(
             'Error',
