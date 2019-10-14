@@ -64,8 +64,6 @@ class AlumnoViewset(viewsets.ModelViewSet):
             serializer = self.get_serializer(data=data)
             serializer.is_valid(raise_exception=True)
             alumno = serializer.save()
-
-
             #Asignacion qr
             nombre_qr = "{}".format(alumno.carnet)
             qrcode_img = qrcode.make("{}".format(alumno.carnet))
@@ -90,19 +88,3 @@ class AlumnoViewset(viewsets.ModelViewSet):
             silla.save()
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
-    @action(methods=["post"], detail=False)
-    def leerQR(self, request, *args, **kwargs):
-        data = request.data
-        carnet = data['carnet']
-        conf = Configuracion.objects.first()
-        alumno = Alumno.objects.filter(carnet=carnet).first()
-        if alumno:
-            if alumno.cantidad_verificacion < conf.cantidad_qr:
-                cantidad = alumno.cantidad_verificacion + 1
-                alumno.cantidad_verificacion = cantidad
-                alumno.save()
-                return Response({'detail':'Se ha verificado correctamente'}, status=status.HTTP_200_OK)
-            else:
-                raise serializers.ValidationError({'detail': 'El código ya no es válido.'})
-        else:
-            raise serializers.ValidationError({'detail':'No existe el carnet.'})
