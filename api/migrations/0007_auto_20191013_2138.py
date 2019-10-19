@@ -45,10 +45,11 @@ def load_inital_data(apps, schema_editor):
     #Creación de carreras
     Carrera = apps.get_model("api", "Carrera")
     Carrera(nombre="Mercadotecnia y Publicidad").save()
-    Carrera(nombre="Auditoría").save()
-    Carrera(nombre="Informática y Administración de empresas").save()
+    Carrera(nombre="Contaduría Pública y Auditoría").save()
+    Carrera(nombre="Administración de empresas").save()
     Carrera(nombre="Comercio Internacional").save()
     Carrera(nombre="Maestría en Administración de Empresas").save()
+    Carrera(nombre="Informática y Administración de Empresas").save()
     #Creación de semestres
     Semestre = apps.get_model("api", "Semestre")
     Semestre(
