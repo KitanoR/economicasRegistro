@@ -6,13 +6,6 @@ import {AsyncSelectField, renderField, SelectField, SelectMulti, renderNoAsyncSe
 import { api } from "api";
 
 
-const exampleOptions = [
-    {"label": "Primary", "value": "Primary"},
-    {"label": "Secondary", "value": "Secondary"},
-    {"label": "Success", "value": "Success"},
-    {"label": "Danger", "value": "Danger"},
-    {"label": "Warning", "value": "Warning"},
-];
 
 
 let PasoUnoForm = props => {
@@ -76,11 +69,11 @@ let PasoUnoForm = props => {
                 <div className="row  col-md-12 m-0">
                     <div className="col-md-6 p-0">
                         <div className="col-md-12 col-sm-12">
-                            <label htmlFor="semestre" className="m-0">Semestres</label>
+                            <label htmlFor="semestres" className="m-0">Semestres</label>
                         </div>
                         <div className="col-md-12  form-group">
                             <Field
-                                    name="semestre"
+                                    name="semestres"
                                     isMulti
                                     options={props.semestres}
                                     component={renderNoAsyncSelectField}
@@ -91,7 +84,7 @@ let PasoUnoForm = props => {
 
                 <div className="buttons-box mt-5 pb-5">
                     <Link className="btn btn-outline-dark mr-5" to="/alumnos">CANCELAR</Link>
-                    <button type="submit" className="btn btn-outline-primary">SIGUIENTE</button>
+                    <button type="submit" className="btn btn-outline-primary">{props.editar ? 'GUARDAR' : 'SIGUIENTE'}</button>
                 </div>
             </div>
         </form>

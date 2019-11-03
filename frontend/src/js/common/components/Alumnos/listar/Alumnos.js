@@ -27,6 +27,14 @@ export default class AlumnosList extends Component{
                     filtro={filtro} onChange={onFiltroChange}/>
                     <Grid hover striped data={data} loading={loader} onPageChange={onPageChange}
                           onSortChange={onSortChange} page={page} >
+                        <TableHeaderColumn
+                        dataField="id"
+                        dataAlign="center"
+                        dataSort
+                        dataFormat={
+                                standardActions({ editar: "alumno" })
+                            }
+                        ></TableHeaderColumn>
                        
                         <TableHeaderColumn
                             isKey

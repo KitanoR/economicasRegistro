@@ -25,7 +25,7 @@ export default class AlumnosCrear extends Component{
         this.props.getCarreras()
           this.props.listarSillas();
           if(this.props.match.params.id){
-              this.props.leer(this.props.match.params.id);
+              this.props.detail(this.props.match.params.id);
               this.setState({editar: true});
           }
       }

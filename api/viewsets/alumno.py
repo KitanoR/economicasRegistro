@@ -123,3 +123,44 @@ class AlumnoViewset(viewsets.ModelViewSet):
                 raise serializers.ValidationError({'detail': 'El código ya no es válido.'})
         else:
             raise serializers.ValidationError({'detail':'No existe el carnet.'})
+
+"""
+server {
+        #listen   80; ## listen for ipv4; this line is default and implied
+        #listen   [::]:80 default ipv6only=on; ## listen for ipv6
+
+        root /usr/share/nginx/www;
+        index index.html index.htm;
+
+        # Make site accessible from http://localhost/
+        server_name localhost;
+
+        location /static {
+            autoindex on;
+            root /var/www/economicasRegistro/;
+            expires 30d;
+        }
+        location /media {
+                autoindex on;
+                alias /var/www/economicasRegistro/media_devel/;
+        }
+        location /api/ {
+                rewrite  ^/api/api/(.*) /$1 break;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header Host $http_host;
+                proxy_redirect off;
+                proxy_pass http://127.0.0.1:8000;
+                proxy_pass_header Server;
+                proxy_set_header X-Real-IP $remote_addr;
+                # proxy_set_header X-Scheme $scheme;
+                proxy_connect_timeout 10;
+                proxy_read_timeout 10;
+                # proxy_set_header SCRIPT_NAME /;
+        }
+        location / {
+                root  /var/www/economicasRegistro/frontend/docroot;
+                try_files $uri /index.html;
+        }
+}
+
+"""

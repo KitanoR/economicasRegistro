@@ -20,7 +20,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Grids from "./common/components/Examples/Grids";
 require('../style/index.css');
 
-import { AlumnosListar, AlumnosCrear } from './common/components/Alumnos';
+import { AlumnosListar, AlumnosCrear, AlumnoEditar } from './common/components/Alumnos';
 
 module.exports = (
     <div>
@@ -34,6 +34,7 @@ module.exports = (
 
                 <ProtectedRoute exact path="/alumnos" component={AlumnosListar} />
                 <ProtectedRoute exact path="/alumno/crear" component={AlumnosCrear} />
+                <ProtectedRoute exact path="/alumno/:id/editar" component={AlumnoEditar} />
                 <Route component={NotFound} />
             </Switch>
         </div>

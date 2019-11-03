@@ -121,7 +121,7 @@ const detail = id => (dispatch, getState) =>{
         dispatch({type: LOADER_ALUMNOS, cargando: false});
         if(data){
             dispatch({type: SET_UPDATE_DATA_ALUMNOS, updateData: data});
-            dispatch(initializeForm('bodega', data))
+            dispatch(initializeForm('alumnoForm', data))
         }
     })
 }
@@ -129,37 +129,31 @@ const detail = id => (dispatch, getState) =>{
 const create = () => (dispatch, getStore) => {
     const formData = getStore().form.alumnoForm.values;
 
+    let semestres = []
+    dispatch({type: LOADER_ALUMNOS, cargando: true})
+    _.forEach(formData.semestres, (sem) => { 
+        semestres.push(sem.id)
+    })
+    formData.semestres = semestres
     if(getStore().alumnos.silla_seleccionada){
-        let semestres = []
-        dispatch({type: LOADER_ALUMNOS, cargando: true})
-        _.forEach(formData.semestre, (sem) => { 
-            semestres.push(sem.id)
-        })
-        formData.semestre = semestres
         formData.lugar = getStore().alumnos.silla_seleccionada.id
-        api.post(`${url}`, formData).then((data) => {
-            dispatch({type: LOADER_ALUMNOS, cargando: false})
-            Swal.fire('Éxito', 'Se ha inscrito correctamente al estudiante.', 'success')
-            .then(() => {
-                dispatch(push('/alumnos'))
-            })
-        }).catch((error) => {
-            dispatch({type: LOADER_ALUMNOS, cargando: false})
-            Swal.fire(
-                'Error',
-                error.detail || 'Ha ocurrido un error, por favor vuelva a intentar.',
-                'error'
-            );
-        }).finally(() => {
-            dispatch({type: LOADER_BODEGA, cargando: false})
-        });
-    }else {
-        Swal.fire('Error', 'Debe de seleccionar un lugar.', 'error')
-            .then(() => {
-                dispatch({type: LOADER_ALUMNOS, cargando: false})
-            })
     }
-    
+    api.post(`${url}`, formData).then((data) => {
+        dispatch({type: LOADER_ALUMNOS, cargando: false})
+        Swal.fire('Éxito', 'Se ha inscrito correctamente al estudiante.', 'success')
+        .then(() => {
+            dispatch(push('/alumnos'))
+        })
+    }).catch((error) => {
+        dispatch({type: LOADER_ALUMNOS, cargando: false})
+        Swal.fire(
+            'Error',
+            error.detail || 'Ha ocurrido un error, por favor vuelva a intentar.',
+            'error'
+        );
+    }).finally(() => {
+        dispatch({type: LOADER_BODEGA, cargando: false})
+    });
 };
 
 const seleccionarSilla = (codigo, id) => (dispatch, getStore) => {
@@ -188,24 +182,30 @@ const seleccionarSilla = (codigo, id) => (dispatch, getStore) => {
 }
 
 const update = () => (dispatch, getStore) => {
-    const formData = _.cloneDeep(getStore().form.bodega.values);
+    const formData = _.cloneDeep(getStore().form.alumnoForm.values);
+    formData.carrera = formData.carrera.id;
+    let semestres = []
+    dispatch({type: LOADER_ALUMNOS, cargando: true})
+    _.forEach(formData.semestres, (sem) => { 
+        semestres.push(sem.id)
+    })
+    formData.semestres = semestres
+
     dispatch({type: LOADER_ALUMNOS, cargando: true});
     api.put(`${url}/${formData.id}`, formData)
     .then((data) => {
         dispatch({type: LOADER_ALUMNOS, cargando: false});
-        if(data){
-            Swal(
+        Swal.fire(
                 'Éxito',
                 'Datos editados correctamente.',
                 'success'
             ).then(() => {
                 dispatch(push('/alumnos'));
             })
-        }
     })
     .catch((error) =>{
         dispatch({type: LOADER_ALUMNOS, cargando: false});
-        Swal(
+        Swal.fire(
             'Error',
              error.detail || 'Ha ocurrido un error, verifique los datos.',
             'error'
