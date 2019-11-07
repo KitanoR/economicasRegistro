@@ -14,15 +14,15 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS('Ejecutando envíos...'))
-        recorrerAlumnos()
+        self.recorrerAlumnos()
 
     def recorrerAlumnos(self):
         alumnos = Alumno.objects.filter(activo=True)
         for alumno in alumnos:
             self.sendEmailQR(alumno)
-            s.stdout.write(self.style.SUCCESS('Enviando...'))
+            self.stdout.write(self.style.SUCCESS('Enviando...'))
         else:
-            elf.stdout.write(self.style.SUCCESS('Finalizado. Ha enviado 0 correos.'))
+            self.stdout.write(self.style.SUCCESS('Finalizado. Ha enviado 0 correos.'))
 
 
     def sendEmailQR(self, alumno):
