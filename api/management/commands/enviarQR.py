@@ -14,19 +14,21 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS('Ejecutando envíos...'))
-        self.recorrerAlumnos()
+        self.recorrerAsignaciones()
 
-    def recorrerAlumnos(self):
-        alumnos = Alumno.objects.filter(activo=True)
-        for alumno in alumnos:
-            self.sendEmailQR(alumno)
+
+    def recorrerAsignaciones(self):
+        asignaciones = Asignacion.objects.filter(activo=True)
+        for asignacion in asignaciones:
+            self.sendEmailQR(asignacion)
             self.stdout.write(self.style.SUCCESS('Enviando...'))
         else:
             self.stdout.write(self.style.SUCCESS('Finalizado. Ha enviado 0 correos.'))
 
 
-    def sendEmailQR(self, alumno):
-        silla = alumno.asignaciones.silla
+    def sendEmailQR(self, asignacion):
+        silla = asignacion.silla
+        alumno = asignacion.alumno
         orden_correo = {
                     'silla': '{}-{}'.format(silla.fila_letra, silla.no_lugar),
                     'usuario': alumno.nombre,
