@@ -118,7 +118,20 @@ class AlumnoViewset(viewsets.ModelViewSet):
                 cantidad = alumno.cantidad_verificacion + 1
                 alumno.cantidad_verificacion = cantidad
                 alumno.save()
-                return Response({'detail':'Se ha verificado correctamente'}, status=status.HTTP_200_OK)
+
+                mensaje = "{}, ha marcado la entrada al evento.".format(alumno.nombre)
+
+                if alumno.asignaciones.first():
+                    asignacion = alumno.asignaciones.first()
+                    mensaje = "{}, ha marcado la entrada al evento. Lugar {}-{}".format(
+                        alumno.nombre,
+                        asignacion.silla.fila_letra,
+                        asignacion.silla.no_lugar
+                    )
+                if cantidad == 2:
+                    mensaje = "{}, ha marcado el consumo de coffe break.".format(alumno.nombre)
+
+                return Response({'detail':mensaje}, status=status.HTTP_200_OK)
             else:
                 raise serializers.ValidationError({'detail': 'El código ya no es válido.'})
         else:
