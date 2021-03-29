@@ -21,7 +21,7 @@ idna==2.8
 kombu==3.0.37
 Markdown==3.1.1
 Pillow==6.2.0
-Pygments==2.3.1
+Pygments==2.7.4
 PyQRCode==1.2.1
 pytz==2018.9
 qrcode==6.1
